@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-A-Sketch</title>
+    <style rel="stylesheet" href="./styles.css"></style>
 </head>
 <body>
-    <button id="grid-size"></button>
-    <div id="grid-container"></div>
+    <div id="main-container">
+        <section id="settings">
+            <button id="grid-size"></button>
+            <select id="colors" name="colors"></select>
+            <button id="clear-grid"></button>
+        </section>
+        <section id="div-container">
+            <div id="grid-container"></div>
+        </section>
+    </section>
+    
+    <script src="./sketch.js"></script>
 </body>
 </html>
