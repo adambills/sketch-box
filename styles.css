@@ -23,8 +23,6 @@
     width: 800px;
     height: 800px;
     flex-wrap: wrap;
-    align-content: stretch;
-    justify-content: center;
 }
 
 .box {
