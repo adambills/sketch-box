@@ -1,7 +1,9 @@
 const container = document.querySelector('#grid-container');
 const gridButton = document.querySelector('#grid-size');
+const clearButton = document.querySelector('#clear-grid');
 
 gridButton.addEventListener('click', () => updateGridSize());
+clearButton.addEventListener('click', () => clearGrid());
 
 function updateGridSize() {
     let gridSize = parseInt(
@@ -36,12 +38,18 @@ function startDrawing() {
     }
 }
 
-
 function updateBoxColor(event) {
     if (event.buttons === 1) {
         let box = event.target;
         box.style.backgroundColor = 'black';
         console.log(event);
+    }
+}
+
+function clearGrid() {
+    const boxes = document.querySelectorAll('.box');
+    for (const box of boxes) {
+        box.style.backgroundColor = '';
     }
 }
 
