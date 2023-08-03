@@ -1,6 +1,6 @@
 *, *:before, *:after {
     box-sizing: border-box;
-    border: 1px solid red;
+  /*   border: 1px solid black; */
 }
 
 #main-container {
@@ -24,6 +24,7 @@
     height: 800px;
     flex-wrap: wrap;
     flex-shrink: 0;
+    border: 1px solid black;
 }
 
 .box {

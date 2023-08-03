@@ -1,9 +1,11 @@
-const container = document.querySelector('#grid-container');
-const gridButton = document.querySelector('#grid-size');
-const clearButton = document.querySelector('#clear-grid');
-
-gridButton.addEventListener('click', () => updateGridSize());
-clearButton.addEventListener('click', () => clearGrid());
+function activateButtons() {
+    const gridButton = document.querySelector('#grid-size');
+    const clearButton = document.querySelector('#clear-grid');
+    const colorButton = document.querySelector('#color-change');
+    gridButton.addEventListener('click', () => updateGridSize());
+    clearButton.addEventListener('click', () => clearGrid());
+    colorButton.addEventListener('click', () => updateColorSelection());
+}
 
 function updateGridSize() {
     let gridSize = parseInt(
@@ -19,6 +21,8 @@ function updateGridSize() {
 }
 
 function generateGrid(gridSize) {
+    const container = document.querySelector('#grid-container');
+    container.setAttribute('ondragstart', 'return false;');
     container.replaceChildren();
     for (let i = 0; i < (gridSize * gridSize); i++) {
         const box = document.createElement('div');
@@ -33,16 +37,41 @@ function startDrawing() {
     const boxes = document.querySelectorAll('.box');
     for (const box of boxes) {
         box.addEventListener('mouseover',
-            (event) => { updateBoxColor(event) }
+            (drawingEvent) => { updateBoxColor(drawingEvent) }
+        );
+        box.addEventListener('mousedown', 
+            (drawingEvent) => { updateBoxColor(drawingEvent) }
         );
     }
 }
 
-function updateBoxColor(event) {
-    if (event.buttons === 1) {
-        let box = event.target;
-        box.style.backgroundColor = 'black';
-        console.log(event);
+let colorName = 'black';
+
+function updateColorSelection() {
+    colorName = prompt(
+        'Enter a CSS supported color name, "random", or "gradient": ', 'black'
+    );
+    if (colorName === 'gradient' || colorName === 'random' ||
+        CSS.supports('color', colorName.toLowerCase())) return;
+    else {
+        alert('Error! Invalid value entered. Please try again.')
+        updateColorSelection();
+    }
+}
+
+function updateBoxColor(drawingEvent) {
+    console.log(drawingEvent);
+    if (drawingEvent.buttons === 1) {
+        if (colorName === 'random') {
+            generateRandomColor(drawingEvent);
+            return;
+        }
+        if (colorName === 'gradient') {
+            generateColorGradient(drawingEvent);
+            return;
+        }
+        let box = drawingEvent.target;
+        box.style.backgroundColor = colorName;
     }
 }
 
@@ -53,4 +82,5 @@ function clearGrid() {
     }
 }
 
+activateButtons();
 generateGrid(16);
