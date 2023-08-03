@@ -60,19 +60,30 @@ function updateColorSelection() {
 }
 
 function updateBoxColor(drawingEvent) {
-    console.log(drawingEvent);
+    //console.log(drawingEvent);
     if (drawingEvent.buttons === 1) {
+        let box = drawingEvent.target;
         if (colorName === 'random') {
-            generateRandomColor(drawingEvent);
+            box.style.backgroundColor = generateRandomColor();
+            console.log(box.style.backgroundColor);
             return;
         }
         if (colorName === 'gradient') {
-            generateColorGradient(drawingEvent);
+            generateColorGradient();
             return;
         }
-        let box = drawingEvent.target;
+        
         box.style.backgroundColor = colorName;
     }
+}
+
+function generateRandomColor() {
+    const rgb = [];
+    for (let i =0; i < 3; i++) {
+        let rgbValue = Math.floor(Math.random() * 255);
+        rgb.push(rgbValue);
+    }
+    return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
 function clearGrid() {
