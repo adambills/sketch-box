@@ -28,6 +28,7 @@ function generateGrid(gridSize) {
         const box = document.createElement('div');
         box.classList.add('box');
         box.style.flexBasis = `${800 / gridSize}px`;
+        box.setAttribute('data-gradient', '0');
         container.appendChild(box);
     }
     startDrawing();
@@ -60,16 +61,14 @@ function updateColorSelection() {
 }
 
 function updateBoxColor(drawingEvent) {
-    //console.log(drawingEvent);
     if (drawingEvent.buttons === 1) {
         let box = drawingEvent.target;
         if (colorName === 'random') {
             box.style.backgroundColor = generateRandomColor();
-            console.log(box.style.backgroundColor);
             return;
         }
         if (colorName === 'gradient') {
-            generateColorGradient();
+            box.style.backgroundColor = generateGradientColor(drawingEvent);
             return;
         }
         
@@ -84,6 +83,18 @@ function generateRandomColor() {
         rgb.push(rgbValue);
     }
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+}
+
+function generateGradientColor(drawingEvent) {
+    let box = drawingEvent.target;
+    let gradientLevel = parseInt(box.getAttribute('data-gradient'));
+    if (gradientLevel < 9) {
+        gradientLevel += 1;
+        box.setAttribute('data-gradient', gradientLevel);
+        let gradientColor = `rgba(0, 0, 0, ${gradientLevel / 10})`
+        return gradientColor;
+    } else return 'black';
+   
 }
 
 function clearGrid() {
