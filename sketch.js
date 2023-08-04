@@ -14,10 +14,8 @@ function updateGridSize() {
     if (isNaN(gridSize) || gridSize < 1 || gridSize > 100) {
         alert('Error! Please enter an appropriate value.');
         updateGridSize();
-    }
-    if (!(isNaN(gridSize) || gridSize < 1 || gridSize > 100)) {
-        generateGrid(gridSize);
-    }
+    } 
+    else generateGrid(gridSize);
 }
 
 function generateGrid(gridSize) {
@@ -27,7 +25,7 @@ function generateGrid(gridSize) {
     for (let i = 0; i < (gridSize * gridSize); i++) {
         const box = document.createElement('div');
         box.classList.add('box');
-        box.style.flexBasis = `${800 / gridSize}px`;
+        box.style.flexBasis = `${600 / gridSize}px`;
         box.setAttribute('data-gradient', '0');
         container.appendChild(box);
     }

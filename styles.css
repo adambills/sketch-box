@@ -44,8 +44,8 @@ button {
     display: flex;
     box-sizing: content-box;
     background-color: white;
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     flex-wrap: wrap;
     flex-shrink: 0;
     border: 1px solid black;
